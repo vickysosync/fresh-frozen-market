@@ -19,7 +19,7 @@ function Checkout() {
   const nav = useNavigate();
   const u = state.user;
   const [f, setF] = useState({ name: u?.name ?? "", email: u?.email ?? "", phone: u?.phone ?? "", address: "", city: "", postal: "", notes: "", delivery: "standard", payment: "Cash on Delivery" });
-  const [err, setErr] = useState<Record<string, string>>({});
+  const [err, setErr] = useState<Partial<Record<"name" | "email" | "phone" | "address" | "city" | "postal", string>>>({});
   const up = (k: keyof typeof f) => (e: { target: { value: string } }) => setF({ ...f, [k]: e.target.value });
   const extra = DELIVERY.find((d) => d.v === f.delivery)!.extra;
   const total = totals.total + extra;
@@ -30,7 +30,7 @@ function Checkout() {
 
   const submit = (e: FormEvent) => {
     e.preventDefault();
-    const er: Record<string, string> = {};
+    const er: Partial<Record<"name" | "email" | "phone" | "address" | "city" | "postal", string>> = {};
     if (f.name.trim().length < 2) er.name = "Enter your name";
     if (!/^\S+@\S+\.\S+$/.test(f.email)) er.email = "Enter a valid email";
     if (!/^[+\d][\d\s-]{7,}$/.test(f.phone)) er.phone = "Enter a valid phone number";

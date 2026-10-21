@@ -116,3 +116,7 @@
 @utility card {
   background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-xl); box-shadow: var(--shadow-card);
 }
+@utility btn-danger {
+  background: var(--destructive); color: var(--destructive-foreground);
+  &:hover { opacity: .9; }
+}

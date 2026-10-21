@@ -15,6 +15,7 @@ function ProductPage() {
   const { id } = Route.useParams();
   const { state, ready, addToCart, toggleWish } = useStore();
   const [qty, setQty] = useState(1);
+  const [main, setMain] = useState(0);
   const p = state.products.find((x) => x.id === id);
   if (!p) return ready ? (
     <div className="mx-auto max-w-xl px-4 py-24 text-center"><h1 className="text-4xl text-primary">Product not found</h1><Link to="/shop" className="btn btn-primary mt-6">Back to shop</Link></div>
@@ -26,8 +27,6 @@ function ProductPage() {
   const wished = state.wishlist.includes(p.id);
   const out = !p.available || p.stock <= 0;
   const gallery = [p.image, cat?.image].filter((x, i, a): x is string => !!x && a.indexOf(x) === i);
-  const [main, setMain] = useState(0);
-
   return (
     <div className="mx-auto max-w-7xl px-4 py-10 lg:px-6">
       <nav className="mb-6 text-sm text-muted-foreground"><Link to="/shop" className="hover:text-fresh">Shop</Link> / {cat && <Link to="/shop" search={{ category: cat.slug }} className="hover:text-fresh">{cat.name}</Link>} / {p.name}</nav>
